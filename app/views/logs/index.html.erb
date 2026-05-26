@@ -1,0 +1,25 @@
+<div class="container mt-5">
+  <h1 class="mb-4">All Logs</h1>
+  <% @logs.each do |log| %>
+    <div class="card mb-3 p-3">
+      <h3><%= log.venue.name %></h3>
+      <p>
+        <strong>Rating:</strong>
+        <%= log.rating %>/5
+      </p>
+      <p>
+        <strong>Comment:</strong>
+        <%= log.comment %>
+      </p>
+      <p class="text-muted">
+        Posted by <%= log.user.user_alias %>
+      </p>
+      <%= link_to "See details",
+        log_path(log),
+        class: "btn btn-primary" %>
+    </div>
+  <% end %>
+  <%= link_to "Create new log",
+    new_log_path,
+    class: "btn btn-primary mb-4" %>
+</div>
