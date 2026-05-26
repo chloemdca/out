@@ -4,6 +4,7 @@ class VenuesController < ApplicationController
   end
 
   def show
-    @venues = Venue.find(params[:id])
+    @venue = Venue.find(params[:id])
+    @log = Log.new
   end
 end

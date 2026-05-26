@@ -1,0 +1,17 @@
+<h1>Map View</h1>
+
+<%# create a drop down with the categories above the map %>
+
+<div data-controller="map"
+data-map-venues-value="<%= @venues.to_json(only: [:id, :lat, :lng, :category]) %>"
+style="height: 500px;">
+</div>
+
+<%# <div>
+  <% @venues.each do |venue| %>
+    <%# <%= link_to venue.name %>
+    <%# <%= venue.category %>
+  <%# <% end %>
+<%# </div> %>
+
+<%# data-controller map connects to stimulus & map venues value passes the venue data %>
