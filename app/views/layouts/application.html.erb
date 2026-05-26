@@ -9,6 +9,13 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!-- Mapbox -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet"/>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js" defer></script>
+
+    <meta name="mapbox-token" content="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>">
+
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
