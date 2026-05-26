@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   resources :venues, only: [:index, :show] do
     resources :logs, only: [:create]
   end
+  resources :lists
 end
