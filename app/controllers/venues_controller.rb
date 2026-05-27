@@ -1,6 +1,11 @@
 class VenuesController < ApplicationController
+  # GET /venues?category=Bar
   def index
-    @venues = Venue.all
+    if params[:category]
+      @venues = Venue.where(category: params[:category])
+    else
+      @venues = Venue.all
+    end
   end
 
   def show

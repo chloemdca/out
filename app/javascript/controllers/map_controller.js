@@ -13,6 +13,8 @@ export default class extends Controller {
 
   connect() {
     console.log("map connected");
+    this.activePopup = null
+
     const token = document.querySelector("meta[name='mapbox-token']").getAttribute("content")
     mapboxgl.accessToken = token
 
@@ -30,28 +32,99 @@ export default class extends Controller {
 
     // map needs to be ready for us to be able to add venue markers to it
     this.map.on("load" , () => {
-      this.addMarkers()
-      this.map.fitBounds(PARIS_BOUNDS, {
-        padding: 40
-      })
+      this.map.resize()
+      this.addVenueSourceAndLayer()
+      this.addVenueInteraction()
+      this.map.fitBounds(PARIS_BOUNDS, { padding: 40 })
     })
   }
 
-  // method to add the marker to the map
-  addMarkers() {
-  this.venuesValue.forEach((venue) => {
-    const marker = new mapboxgl.Marker()
-      .setLngLat([venue.lng, venue.lat])
+  // method to convert it into geoJson
+  venuestoGEOJSON() {
+    return {
+      type: "FeatureCollection",
+      features: this.venuesValue.map((venue) => ({
+        type: "Feature",
+        properties: {
+          id: venue.id,
+          name: venue.name,
+          category: venue.category
+        },
+        geometry: {
+          type: "Point",
+          coordinates: [venue.lng, venue.lat]
+        }
+      }))
+    }
+  }
+
+  // the map source and additional layers
+  addVenueSourceAndLayer() {
+    this.map.addSource("venues", {
+      type: "geojson",
+      data: this.venuestoGEOJSON()
+    })
+    this.map.addLayer({
+      id: "venues",
+      type: "circle",
+      source: "venues",
+      paint: {
+        "circle-radius": 8,
+        "circle-color": [
+          "match",
+          ["get", "category"],
+          "Cafe", "#3fdfff",
+          "Restaurant", "#fe6f2d",
+          "Bar", "#ff54bb",
+          "#999999"
+        ],
+        "circle-stroke-width": 2,
+        "circle-stroke-color": "#ffffff",
+      }
+    })
+  }
+  // pop up and cursor interaction feature
+  addVenueInteraction() {
+  this.map.on("click", (e) => {
+    const features = this.map.queryRenderedFeatures(e.point, {
+      layers: ["venues"]
+    })
+
+    if (!features.length) return
+
+    const feature = features[0]
+    const { id, name, category } = feature.properties
+    const coordinates = feature.geometry.coordinates.slice()
+
+    if (this.activePopup) {
+      this.activePopup.remove()
+    }
+
+    this.map.flyTo({
+      center: coordinates,
+      zoom: 15
+    })
+
+    this.activePopup = new mapboxgl.Popup({ offset: 25 })
+      .setLngLat(coordinates)
+      .setHTML(`
+        <div class="popup">
+          <h3>${name}</h3>
+          <p>${category}</p>
+          <a href="/venues/${id}/logs/new" target="_blank" rel="noopener">
+            Create a log
+          </a>
+        </div>
+      `)
       .addTo(this.map)
-
-    marker.getElement().addEventListener("click", () => {
-      this.selectVenue(venue)
-    })
   })
-  }
 
-  selectVenue(venue) {
-    // simplest option: redirect to venue page
-    window.location.href = `/venues/${venue.id}`
+  this.map.on("mouseenter", "venues", () => {
+    this.map.getCanvas().style.cursor = "pointer"
+  })
+
+  this.map.on("mouseleave", "venues", () => {
+    this.map.getCanvas().style.cursor = ""
+  })
   }
 }
