@@ -4,8 +4,18 @@ Rails.application.routes.draw do
     # POST /chats/:chat_id/messages -> messages#create
   end
 
+  # Devise routes
   devise_for :users
-  root to: redirect("/users/sign_in")
+  authenticated :user do
+    root "pages#home", as: :authenticated_root
+  end
+
+  unauthenticated do
+    root to: redirect("/users/sign_in")
+  end
+
+  # Home route
+  get "home", to: "pages#home", as: :home
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
