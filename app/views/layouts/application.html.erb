@@ -37,6 +37,11 @@
       <div id="flash-message" class="flash flash-notice">
         <%= notice %>
       </div>
+      <script>
+        setTimeout(() => {
+          document.getElementById("flash-message").style.display = "none";
+        }, 5000);
+      </script>
     <% end %>
 
     <% if alert %>
