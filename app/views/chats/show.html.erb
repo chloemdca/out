@@ -1,0 +1,21 @@
+<div class="container mt-5">
+  <h1>Chat</h1>
+
+  <div class="chat-messages">
+    <% @chat.messages.each do |message| %>
+      <div class="message-row <%= message.role%>">
+        <div class="bubble">
+          <p><%= message.content %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <%= form_with model: [@chat, @message] do |f| %>
+    <p><%= @message.errors.full_messages.join(" | ") %></p>
+    <div class="mb-3">
+      <%= f.text_area :content, class: "form-control" %>
+    </div>
+    <%= f.submit "Send", class: "btn btn-primary" %>
+  <% end %>
+</div>
