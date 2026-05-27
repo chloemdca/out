@@ -1,8 +1,6 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
-
-<%= button_to "Sign out",
-    destroy_user_session_path,
-    method: :delete,
-    data: { turbo: false },
-    class: "signout-btn" %>
+<div class="flex flex-col">
+  <h1>Welcome to Out</h1>
+  <p><%= link_to "Log a venue", new_log_path %></p>
+  <p><%= link_to "Create a list", new_list_path %></p>
+  <p><%= link_to "Explore venues", venues_path %></p>
+</div>
