@@ -43,3 +43,31 @@
 body {
   background-color: #fff3ee;
 }
+
+.signout-btn {
+  background: #d62828;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.flash {
+  width: fit-content;
+  margin: 20px auto;
+  padding: 14px 22px;
+  border-radius: 12px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.flash-notice {
+  background: #dff5e4;
+  color: #1e4620;
+}
+
+.flash-alert {
+  background: #ffe3e3;
+  color: #7a1c1c;
+}
