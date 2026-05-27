@@ -10,6 +10,7 @@
 
 puts "Cleaning database.."
 Venue.destroy_all
+User.destroy_all
 
 Venue.create!([
   {
@@ -99,3 +100,13 @@ Venue.create!([
 ])
 
 puts "Created venues!"
+
+User.create!(
+  email: "test@test.com",
+  password: "password",
+  user_alias: "testuser",
+  first_name: "Test",
+  last_name: "User"
+)
+
+puts "Created test user!"
