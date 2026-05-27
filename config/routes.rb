@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :chats do
+    resources :messages, only: [ :create ]
+    # POST /chats/:chat_id/messages -> messages#create
+  end
+
   devise_for :users
   root to: redirect("/users/sign_in")
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
