@@ -1,17 +1,43 @@
-<div class="container mt-5">
-  <h1>Edit log</h1>
-  <%= form_with model: @log do |f| %>
-    <div class="mb-3">
-      <%= f.label :rating %>
-      <%= f.number_field :rating,
-          class: "form-control" %>
+<div class="max-w-2xl mx-auto mt-10 px-4">
+
+  <h1 class="text-3xl font-bold mb-2">Edit log</h1>
+
+  <p class="text-lg text-gray-700 mb-6">
+    <span class="font-semibold">
+      <%= @log.venue.name %>
+    </span>
+  </p>
+
+  <%= simple_form_for @log do |f| %>
+
+    <div class="mb-4">
+      <%= f.input :rating,
+        input_html: {
+          class: "w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-600"
+        },
+        label_html: {
+          class: "block text-sm font-semibold text-gray-700 mb-2"
+        } %>
     </div>
-    <div class="mb-3">
-      <%= f.label :comment %>
-      <%= f.text_area :comment,
-          class: "form-control" %>
+
+    <div class="mb-6">
+      <%= f.input :comment,
+        input_html: {
+          class: "w-full rounded-lg border border-gray-300 px-4 py-2 h-32 resize-none focus:outline-none focus:ring-2 focus:ring-red-600"
+        },
+        label_html: {
+          class: "block text-sm font-semibold text-gray-700 mb-2"
+        } %>
     </div>
-    <%= f.submit "Update log",
-        class: "btn btn-primary" %>
+
+    <div class="flex justify-end gap-3">
+      <%= link_to "Back",
+        logs_path(@logs),
+        class: "px-6 py-3 bg-gray-200 text-gray-800 font-bold rounded-lg hover:bg-gray-300 transition duration-200" %>
+
+      <%= f.button :submit, "Update log",
+        class: "px-6 py-3 bg-gray-900 text-white font-bold rounded-lg hover:bg-black transition duration-200" %>
+    </div>
+
   <% end %>
 </div>
