@@ -23,15 +23,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_28_060243) do
     t.index ["user_id"], name: "index_chats_on_user_id"
   end
 
+  create_table "list_venues", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "list_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "venue_id", null: false
+    t.index ["list_id"], name: "index_list_venues_on_list_id"
+    t.index ["venue_id"], name: "index_list_venues_on_venue_id"
+  end
+
   create_table "lists", force: :cascade do |t|
     t.string "comment"
     t.datetime "created_at", null: false
     t.string "name"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-    t.bigint "venue_id", null: false
     t.index ["user_id"], name: "index_lists_on_user_id"
-    t.index ["venue_id"], name: "index_lists_on_venue_id"
   end
 
   create_table "logs", force: :cascade do |t|
@@ -82,8 +89,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_28_060243) do
   end
 
   add_foreign_key "chats", "users"
+  add_foreign_key "list_venues", "lists"
+  add_foreign_key "list_venues", "venues"
   add_foreign_key "lists", "users"
-  add_foreign_key "lists", "venues"
   add_foreign_key "logs", "users"
   add_foreign_key "logs", "venues"
   add_foreign_key "messages", "chats"

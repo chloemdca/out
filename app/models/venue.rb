@@ -1,7 +1,8 @@
 class Venue < ApplicationRecord
   CATEGORIES = ["bar", "restaurant", "cafe"]
 
-  has_many :lists, dependent: :destroy
+  has_many :list_venues, dependent: :destroy
+  has_many :lists, through: :list_venues
   has_many :logs, dependent: :destroy
   # has_one_attached :file
 
