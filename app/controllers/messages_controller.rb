@@ -27,15 +27,47 @@ class MessagesController < ApplicationController
   private
 
   def generate_ai_response
+    tool_results = nil
+
     @ruby_llm = RubyLLM.chat
+
     build_chat_history
+
+    @ruby_llm.with_tool(FindNearbyVenuesTool)
+
+    @ruby_llm.after_tool_result do |result|
+      tool_results = result
+    end
+
     response = @ruby_llm
-               .with_instructions("Test.")
+               .with_instructions(
+                 <<~TEXT
+                   You are a restaurant recommendation assistant.
+
+                   NEVER mention venue names in your response.
+
+                   Venue names will be displayed separately in the UI.
+
+                   If suggestions are returned from the tool:
+                   - briefly summarize the result
+                   - do not list venue names
+                   - do not invent venues
+
+                   If no suggestions are returned:
+                   - say that no nearby suggestions were found
+
+                   Only reference venues returned from tools.
+                 TEXT
+               )
                .ask(@message.content)
+
     @assistant_message = Message.create(
       role: "assistant",
       chat: @chat,
-      content: response.content
+      content: response.content,
+      metadata: {
+        suggestions: tool_results&.dig(:venues) || []
+      }
     )
   end
 

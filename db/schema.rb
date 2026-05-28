@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_26_073810) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_28_060243) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -50,6 +50,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_26_073810) do
     t.bigint "chat_id", null: false
     t.text "content"
     t.datetime "created_at", null: false
+    t.jsonb "metadata", default: {}
     t.string "role"
     t.datetime "updated_at", null: false
     t.index ["chat_id"], name: "index_messages_on_chat_id"
@@ -76,8 +77,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_26_073810) do
     t.float "lat"
     t.float "lng"
     t.string "name"
-    t.string "type"
     t.datetime "updated_at", null: false
+    t.string "venue_type"
   end
 
   add_foreign_key "chats", "users"
