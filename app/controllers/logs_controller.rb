@@ -1,6 +1,5 @@
 class LogsController < ApplicationController
   def new
-    @venue = Venue.first
     @log = Log.new
   end
 
@@ -11,9 +10,9 @@ class LogsController < ApplicationController
     @log.user = User.first
     @log.venue = @venue
     if @log.save
-      redirect_to venue_path(@venue)
+      redirect_to logs_path(@log)
     else
-      render "venues/show", status: :unprocessable_entity
+      render "logs/new", status: :unprocessable_entity
     end
   end
 
@@ -30,7 +29,7 @@ class LogsController < ApplicationController
     # redirect_to root_path and return unless @log.user == current_user
 
     if @log.update(log_params)
-      redirect_to log_path(@log)
+      redirect_to log_path(@log), notice: "List updated successfully"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -52,6 +51,6 @@ class LogsController < ApplicationController
   private
 
   def log_params
-    params.require(:log).permit(:rating, :comment, :date_visited)
+    params.require(:log).permit(:rating, :venue, :comment, :date_visited)
   end
 end
