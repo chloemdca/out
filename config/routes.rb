@@ -33,6 +33,6 @@ Rails.application.routes.draw do
   end
   resources :logs, only: [:index, :show, :new, :edit, :update, :destroy]
   resources :lists do
-    resources :list_venues
+    resources :list_venues, only: [ :create ]
   end
 end

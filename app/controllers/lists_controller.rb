@@ -16,11 +16,10 @@ class ListsController < ApplicationController
   end
 
   def create
-    @user = User.find(params[:user_id])
-    @venue = Venue.find(params[:venue_id])
     @list = List.new(list_params)
+    @list.user = current_user
     if @list.save
-      redirect_to lists_path
+      redirect_to @list, notice: "List saved"
     else
       render :new, status: :unprocessable_entity
     end
