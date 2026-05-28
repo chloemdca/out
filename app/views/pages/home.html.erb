@@ -3,9 +3,18 @@
     <%= image_tag "Welcome_to.svg", style: "width: 400px;" %>
     <%= image_tag "Logo_red.svg", style: "width: 600px; margin-top: -90px; margin-left: -60px;" %>
   </div>
-  <div class="d-flex flex-column mt-4">
-    <p><%= link_to "Log a venue", new_log_path %></p>
-    <p><%= link_to "Create a list", new_list_path %></p>
-    <p><%= link_to "Explore venues", venues_path %></p>
+
+  <div class="d-flex flex-column gap-2" style="margin-top: 150px;">
+    <% [
+      ["Log a venue", new_log_path],
+      ["Create a list", new_list_path],
+      ["Explore venues", venues_path]
+    ].each do |label, path| %>
+      <div style="display: inline-block; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));">
+        <div class="bg-white px-5" style="clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%); width: 450px; height: 70px; display: flex; align-items: center;">
+          <%= link_to label, path, style: "color: #222222; text-decoration: none; font-size: 1.4rem; font-weight: bold; text-transform: uppercase;", onmouseover: "this.style.fontStyle='italic'", onmouseout: "this.style.fontStyle='normal'" %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
