@@ -1,17 +1,42 @@
-<div class="container mt-5">
-  <h1>Create a log</h1>
-  <%= form_with model: [@venue, @log] do |f| %>
-    <div class="mb-3">
-      <%= f.label :rating %>
-      <%= f.number_field :rating,
-          class: "form-control" %>
+<div class="max-w-lg mx-auto mt-10">
+  <%= image_tag "Create_log.svg", class: "w-[400px] mb-6" %>
+
+  <%= simple_form_for [@venue, @log] do |f| %>
+
+    <div class="mb-4">
+      <%= f.association :venue,
+        collection: Venue.all,
+        label_method: :name,
+        value_method: :id,
+        prompt: "Select a venue",
+        input_html: { class: "w-full border rounded px-3 py-2" } %>
+
+      <div class="flex items-center gap-2">
+        <%= f.input :rating,
+          input_html: {
+            class: "w-full border rounded px-3 py-2",
+            min: 0,
+            max: 5
+          } %>
+
+        <span class="text-gray-500 whitespace-nowrap">
+          out of 5
+        </span>
+      </div>
+
+      <%= f.input :comment,
+        as: :text,
+        input_html: {
+          class: "w-full border rounded px-3 py-2"
+        } %>
     </div>
-    <div class="mb-3">
-      <%= f.label :comment %>
-      <%= f.text_area :comment,
-          class: "form-control" %>
+
+    <div class="flex justify-end gap-3">
+      <%= link_to "Back", root_path, class: "px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" %>
+
+      <%= f.submit "Create log",
+        class: "px-4 py-2 bg-black text-white rounded hover:bg-gray-800 cursor-pointer" %>
     </div>
-    <%= f.submit "Create log",
-        class: "btn btn-primary" %>
+
   <% end %>
 </div>

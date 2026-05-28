@@ -31,7 +31,8 @@ Rails.application.routes.draw do
   resources :venues do
     resources :logs, only: [:new, :create]
   end
-  resources :logs, only: [:index, :show, :new, :edit, :update, :destroy]
+
+  resources :logs
   resources :lists do
     resources :list_venues, only: [ :create ]
   end
