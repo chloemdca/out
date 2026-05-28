@@ -40,10 +40,10 @@ class ListsController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
-end
 
-private
+  private
 
-def list_params
-  params.require(:list).permit(:name, :comment)
+  def list_params
+    params.require(:list).permit(:name, :comment)
+  end
 end

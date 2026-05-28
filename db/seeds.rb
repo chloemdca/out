@@ -11,8 +11,9 @@
 puts "Cleaning database.."
 Venue.destroy_all
 User.destroy_all
+List.destroy_all
 
-Venue.create!([
+venues = Venue.create!([
   {
    name: "Little Red Door",
     category: "Bar",
@@ -101,7 +102,7 @@ Venue.create!([
 
 puts "Created venues!"
 
-User.create!(
+user = User.create!(
   email: "test@test.com",
   password: "password",
   user_alias: "testuser",
@@ -110,3 +111,13 @@ User.create!(
 )
 
 puts "Created test user!"
+
+musttry = List.create!(user: user, name: "Must Try")
+favourites = List.create!(user: user, name: "Favourites")
+
+venues.sample(2).each do |venue|
+  ListVenue.create!(list: musttry, venue: venue)
+  ListVenue.create!(list: favourites, venue: venue)
+end
+
+puts "Lists created!"

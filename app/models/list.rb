@@ -1,6 +1,8 @@
 class List < ApplicationRecord
   belongs_to :user
-  belongs_to :venue
+
+  has_many :list_venues, dependent: :destroy
+  has_many :venues, through: :list_venues
 
   validates :name, presence: true
 end
