@@ -1,23 +1,48 @@
-<div class="max-w-2xl mt-10 ml-10">
-  <%= image_tag "Logs.svg", class: "w-[400px] -ml-[130px]" %>
-  <% @logs.each do |log| %>
-    <div class="bg-white rounded-lg shadow p-4 mb-4">
-      <h3 class="text-xl font-semibold"><%= log.venue.name %></h3>
+<div class="mt-10 ml-10">
+  <%= image_tag "Logs.svg", class: "w-[350px] -ml-[120px] h-[65px]" %>
+
+  <div class="mb-6 flex items-center gap-2">
+    <% Venue::CATEGORIES.each do |category| %>
+      <%= link_to category, logs_path(category: category),
+        class: "px-4 py-1 rounded-full text-sm font-semibold border",
+        style: params[:category] == category ? "background-color: #A01830; color: white; border-color: #A01830; font-family: 'Londrina Solid', sans-serif; text-transform: uppercase; font-size: 1.1rem;" : "background-color: #C12743; color: white; border-color: #C12743; font-family: 'Londrina Solid', sans-serif; text-transform: uppercase; font-size: 1.1rem;" %>
+    <% end %>
+    <% if params[:category].present? %>
+      <%= link_to "Clear", logs_path,
+        class: "px-4 py-2 rounded-full text-sm font-semibold border",
+        style: "background-color: #f5f5f5; color: #757575; border-color: #ccc; font-family: 'Londrina Solid', sans-serif;" %>
+    <% end %>
+  </div>
+
+  <div class="grid grid-cols-3 gap-6">
+    <% @logs.each do |log| %>
+    <div class="p-6 rounded-lg flex flex-col h-[200px] w-[390px]" style="background-color: #FBF0E3; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+      <div class="flex items-center justify-between mb-2">
+        <h3 style="font-family: 'Londrina Solid', sans-serif; font-size: 1.4rem; text-transform: uppercase;"><%= log.venue.name %></h3>
+        <span style="font-size: 1.3rem; color: #D4A017; -webkit-text-stroke: 0.5px #D4A017;">
+          <% 5.times do |i| %>
+            <%= i < log.rating ? "★" : "☆" %>
+          <% end %>
+        </span>
+      </div>
       <p class="mt-2">
-        <strong>Rating:</strong>
-        <%= log.rating %>/5
+        <strong>Visited:</strong>
+        <%= log.date_visited&.strftime("%B %d, %Y") %>
       </p>
       <p class="mt-2">
         <strong>Comment:</strong>
         <%= log.comment %>
       </p>
-      <div class="flex gap-3 mt-3">
-        <%= link_to "See details", log_path(log), class: "px-4 py-2 bg-black text-white rounded hover:bg-gray-800" %>
-        <%= link_to "Edit", edit_log_path(log), class: "px-4 py-2 bg-gray-900 text-white rounded hover:bg-black" %>
-        <%= link_to "Delete", log_path(log), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700" %>
+      <div class="flex gap-2 ml-25 p-7 whitespace-nowrap" style="font-family: 'Londrina Solid', sans-serif; font-size: 0.9rem; text-transform: uppercase;">
+        <%= link_to "See details", log_path(log), class: "px-3 py-1 bg-black text-white rounded hover:bg-gray-800" %>
+        <%= link_to "Edit", edit_log_path(log), class: "px-3 py-1 text-white rounded", style: "background-color: #757575;" %>
+        <%= link_to "Delete", log_path(log), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700" %>
       </div>
     </div>
-  <% end %>
-    <%= link_to "Back", root_path, class: "inline-block mt-4 px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" %>
-    <%= link_to "Create new log", new_log_path, class: "inline-block mt-4 px-4 py-2 bg-black text-white rounded hover:bg-gray-800" %>
+    <% end %>
+  </div>
+  <div class="mt-4">
+    <%= link_to "BACK", root_path, class: "inline-block px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300", style: "font-family: 'Londrina Solid', sans-serif;" %>
+    <%= link_to "CREATE NEW LOG", new_log_path, class: "inline-block px-4 py-2 text-white rounded", style: "font-family: 'Londrina Solid', sans-serif; background-color: #4CAF50;" %>
+  </div>
 </div>
