@@ -1,16 +1,16 @@
 <nav class="flex items-center justify-between px-4 py-2 bg-white shadow-sm">
   <%= image_tag "Logo_app_out.jpg", class: "h-10 w-auto" %>
 
-  <div class="flex items-center gap-4">
+  <div class="flex items-center gap-4 pr-10">
     <% if user_signed_in? %>
-      <%= link_to "Home", root_path, class: "font-medium hover:text-gray-600" %>
-      <%= link_to "Chat", chats_path, class: "font-medium hover:text-gray-600" %>
-      <%= button_to "Sign out", destroy_user_session_path, method: :delete, data: { turbo: false }, class: "signout-btn" %>
+      <%= link_to "HOME", root_path, class: "font-medium hover:text-gray-600", style: "font-family: 'Londrina Solid', sans-serif; letter-spacing: 0.02em; font-size: 1.2rem;" %>
+      <%= link_to "CHAT", chats_path, class: "font-medium hover:text-gray-600", style: "font-family: 'Londrina Solid', sans-serif; letter-spacing: 0.02em; font-size: 1.2rem;" %>
+      <%= button_to "SIGN OUT", destroy_user_session_path, method: :delete, data: { turbo: false }, class: "signout-btn", style: "font-family: 'Londrina Solid', sans-serif; letter-spacing: 0.02em; font-size: 1.2rem; padding: 4px 12px;" %>
       <%= link_to user_path(current_user) do %>
         <%= image_tag "user_image.svg", class: "h-10 w-10 rounded-full", alt: "profile" %>
       <% end %>
     <% else %>
-      <%= link_to "Login", new_user_session_path, class: "font-medium hover:text-gray-600" %>
+      <%= link_to "Login", new_user_session_path, class: "font-medium hover:text-gray-600", style: "font-family: 'Londrina Solid', sans-serif; letter-spacing: 0.02em; font-size: 1.2rem;" %>
     <% end %>
   </div>
 </nav>

@@ -1,45 +1,47 @@
-<div class="max-w-2xl mx-auto mt-10">
-  <div class="bg-white rounded-lg shadow p-6 mb-6">
+<div class="mx-10 mt-10">
+  <div class="bg-white rounded-lg shadow p-6 mb-6 w-full">
     <div class="flex items-center gap-4 mb-4">
-      <%= image_tag "user_image.svg", class: "h-16 w-16 rounded-full" %>
+      <%= image_tag "user_image.svg", class: "h-32 w-32 rounded-full" %>
       <div>
-        <h1 class="text-2xl font-bold"><%= @user.user_alias %></h1>
-        <p class="text-gray-500"><%= @user.email %></p>
-        <p class="text-gray-500"><%= @user.first_name %> <%= @user.last_name %></p>
+        <h1 class="text-4xl font-bold uppercase" style="color: #BD2B41; font-family: 'Londrina Outline', sans-serif;">@<%= @user.user_alias %></h1>
+        <p class="text-lg text-gray-500"><%= @user.email %></p>
+        <p class="text-lg text-gray-500"><%= @user.first_name %> <%= @user.last_name %></p>
       </div>
     </div>
   </div>
 
-  <div class="bg-white rounded-lg shadow p-6 mb-6">
-    <h2 class="text-xl font-bold mb-4">My Logs</h2>
-    <% if @user.logs.any? %>
-      <% @user.logs.each do |log| %>
-        <div class="border-b py-3">
-          <p class="font-semibold"><%= log.venue.name %></p>
-          <p class="text-gray-500">Rating: <%= log.rating %>/5</p>
-          <p class="text-gray-500"><%= log.comment %></p>
-        </div>
+  <div class="flex gap-6 mb-6">
+    <div class="bg-white rounded-lg shadow p-6 flex-1">
+      <h2 class="text-3xl font-bold mb-2 uppercase" style="font-family: 'Londrina solid', sans-serif;">My Logs</h2>
+      <% if @user.logs.any? %>
+        <% @user.logs.each do |log| %>
+          <div class="border-b py-3">
+            <p class="font-semibold"><%= log.venue.name %></p>
+            <p class="text-gray-500">Rating: <%= log.rating %>/5</p>
+            <p class="text-gray-500"><%= log.comment %></p>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="text-gray-500">No logs yet</p>
       <% end %>
-    <% else %>
-      <p class="text-gray-500">No logs yet.</p>
-    <% end %>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6 flex-1">
+      <h2 class="text-3xl font-bold mb-2 uppercase" style="font-family: 'Londrina solid', sans-serif;">My Lists</h2>
+      <% if @user.lists.any? %>
+        <% @user.lists.each do |list| %>
+          <div class="border-b py-3">
+            <p class="font-semibold"><%= list.name %></p>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="text-gray-500">No lists yet</p>
+      <% end %>
+    </div>
   </div>
 
   <div class="bg-white rounded-lg shadow p-6 mb-6">
-    <h2 class="text-xl font-bold mb-4">My Lists</h2>
-    <% if @user.lists.any? %>
-      <% @user.lists.each do |list| %>
-        <div class="border-b py-3">
-          <p class="font-semibold"><%= list.name %></p>
-        </div>
-      <% end %>
-    <% else %>
-      <p class="text-gray-500">No lists yet.</p>
-    <% end %>
-  </div>
-
-  <div class="bg-white rounded-lg shadow p-6 mb-6">
-    <h2 class="text-xl font-bold mb-4">My Venues</h2>
+    <h2 class="text-3xl font-bold mb-2 uppercase" style="font-family: 'Londrina solid', sans-serif;">My Venues</h2>
     <% if @user.venues.any? %>
       <% @user.venues.each do |venue| %>
         <div class="border-b py-3">
@@ -48,7 +50,7 @@
         </div>
       <% end %>
     <% else %>
-      <p class="text-gray-500">No venues yet.</p>
+      <p class="text-gray-500">No venues yet</p>
     <% end %>
   </div>
 </div>

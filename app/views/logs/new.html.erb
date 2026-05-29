@@ -1,5 +1,5 @@
-<div class="max-w-lg mx-auto mt-10">
-  <%= image_tag "Create_log.svg", class: "w-[400px] mb-6" %>
+<div class="max-w-2xl mt-10 ml-10">
+  <%= image_tag "Create_log.svg", class: "w-[400px] -ml-[30px]" %>
 
   <%= simple_form_for [@venue, @log] do |f| %>
 
@@ -32,10 +32,14 @@
     </div>
 
     <div class="flex justify-end gap-3">
-      <%= link_to "Back", root_path, class: "px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" %>
+      <%= link_to "BACK", root_path,
+      class: "px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300",
+      style: "font-family: 'Londrina Solid', sans-serif"
+      %>
 
-      <%= f.submit "Create log",
-        class: "px-4 py-2 bg-black text-white rounded hover:bg-gray-800 cursor-pointer" %>
+      <%= f.submit "CREATE LOG",
+        class: "px-4 py-2 text-white rounded cursor-pointer",
+        style: "font-family: 'Londrina Solid', sans-serif; background-color: #4CAF50;" %>
     </div>
 
   <% end %>
