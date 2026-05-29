@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   def index
-    @lists = List.all
+    @lists = current_user.lists.includes(:venues)
   end
 
   def show
@@ -43,6 +43,6 @@ class ListsController < ApplicationController
   private
 
   def list_params
-    params.require(:list).permit(:name, :comment)
+    params.require(:list).permit(:name, :comment, :emoji)
   end
 end

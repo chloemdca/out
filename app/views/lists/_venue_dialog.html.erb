@@ -1,6 +1,6 @@
 <!-- Include this script tag or install `@tailwindplus/elements` via npm: -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script> -->
-<button command="show-modal" commandfor="dialog" class="inline-flex items-center rounded-md bg-rose-500 px-4 py-2 text-white font-semibold hover:bg-rose-600 transition">Add a venue</button>
+<button command="show-modal" commandfor="dialog" class="inset-0 opacity-0 text-gray-900 group-hover:text-indigo-600">Add a venue</button>
 <el-dialog>
   <dialog id="dialog" aria-labelledby="dialog-title" class="fixed inset-0 size-auto max-h-none max-w-none overflow-y-auto bg-transparent backdrop:bg-transparent">
     <el-dialog-backdrop class="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"></el-dialog-backdrop>
@@ -9,7 +9,7 @@
       <el-dialog-panel class="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-sm sm:p-6 data-closed:sm:translate-y-0 data-closed:sm:scale-95">
         <%= simple_form_for([list, ListVenue.new]) do |f| %>
           <%= f.association :venue, collection: Venue.all %>
-          <%= f.button :submit %>
+          <%= f.button :submit, "Add to your list", class: "text-red-800" %>
         <% end %>
       </el-dialog-panel>
     </div>

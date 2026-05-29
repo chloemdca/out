@@ -1,6 +1,6 @@
 <div class="w-full flex flex-col gap-3">
   <div class="mb-2 flex items-center justify-between gap-4">
-    <h1 class="text-xl font-semibold">VENUES</h1>
+    <h1 class="text-3xl font-semibold">VENUES</h1>
     <%# create a drop down with the categories above the map %>
     <!-- Include this script tag or install `@tailwindplus/elements` via npm: -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script> -->
@@ -23,7 +23,7 @@
           <% end %>
 
           <% Venue::CATEGORIES.each do |category| %>
-            <%= link_to category, venues_path(category: category),
+            <%= link_to category.capitalize, venues_path(params.permit(:sort).merge(category: category)),
             class: "block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:text-gray-900 focus:outline-hidden" %>
           <% end %>
         </div>
@@ -37,8 +37,34 @@
     class="h-[500px] w-full rounded-lg shadow-sm ring-1 ring-gray-200">
   </div>
 
-  <div class="mt-4 bg-gray-50 shadow-sm rounded-lg p-4">
-    <h3 class="text-xl font-semibold mb-4">Venues</h3>
+  <div class="mt-4 bg-gray-50 shadow-sm rounded-lg p-4 items-center justify-between">
+    <div class="mb-2 flex items-center justify-between gap-4 p-1">
+      <h2 class="text-2xl font-semibold mb-4">Venues</h2>
+      <%# create a drop down with the categories above the map %>
+      <!-- Include this script tag or install `@tailwindplus/elements` via npm: -->
+      <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script> -->
+      <el-dropdown class="relative">
+        <button class="inline-flex items-center gap-x-1.5 rounded-full bg-white px-4 py-2
+                  text-sm font-semibold text-gray-900
+                  shadow-sm ring-1 ring-gray-300
+                  hover:bg-gray-50">
+          Filter
+          <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="-mr-1 size-5 text-gray-400">
+            <path d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
+          </svg>
+        </button>
+
+        <el-menu anchor="bottom end" popover class="w-56 origin-top-right rounded-md bg-white shadow-lg outline-1 outline-black/5 transition transition-discrete [--anchor-gap:--spacing(2)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">
+          <div class="py-1">
+            <% if params[:sort].present? %>
+              <%= link_to "Clear filter", venues_path, class: "block px-4 py-2 text-sm text-rose-700 focus:bg-rose-100 focus:text-rose-900 focus:outline-hidden" %>
+              <% end %>
+            <%= link_to "Venues A to Z", venues_path(params.permit(:category).merge(sort: "az")), class: "block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:text-gray-900 focus:outline-hidden" %>
+            <%= link_to "Venues Z to A", venues_path(params.permit(:category).merge(sort: "za")), class: "block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:text-gray-900 focus:outline-hidden" %>
+          </div>
+        </el-menu>
+      </el-dropdown>
+    </div>
 
     <div class="space-y-3">
       <% @venues.each do |venue| %>
@@ -46,16 +72,15 @@
           <div class="font-medium text-gray-900">
             <%= link_to venue.name, venue_path(venue) %>
             <div class="text-sm text-gray-600">
-              <%= venue.category %>
+              <%= venue.category.capitalize %>
             </div>
             <div class="flex gap-2 justify-end">
               <%= link_to "Add log", new_venue_log_path(venue),
-                class: "px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"%>
-              <%= button_to "Add to list", lists_path(venue), method: :post,
-                  class: "px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700" %>
+                class: "px-3 py-1 text-sm bg-red-400 text-white rounded hover:bg-red-700"%>
+              <%= link_to "Add to list", lists_path(@list), method: :post,
+                  class: "px-3 py-1 text-sm bg-rose-500 text-white rounded hover:bg-rose-700" %>
             </div>
           </div>
-
         </div>
       <% end %>
     </div>

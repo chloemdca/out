@@ -1,5 +1,30 @@
-<%= simple_form_for(@list) do |f| %>
-  <%= f.input :name %>
-  <%= f.input :comment %>
-  <%= f.submit "Create a new list" %>
-<% end %>
+<div class="max-w-lg mx-auto mt-10">
+
+  <%= simple_form_for(@list) do |f| %>
+
+    <div class="mb-4">
+      <%= f.input :name,
+        prompt: "Name your list",
+        input_html: { class: "w-full border rounded px-3 py-2" } %>
+
+        <%= f.input :emoji,
+        collection: ["📍", "🍔", "🍜", "☕️", "🍷", "🥐", "🪩", "🍕"],
+        label: "List icon",
+        prompt: "Choose an emoji" %>
+
+      <%= f.input :comment,
+        as: :text,
+        input_html: {
+          class: "w-full border rounded px-3 py-2"
+        } %>
+    </div>
+
+    <div class="flex justify-end gap-3">
+      <%= link_to "Back", lists_path, class: "px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" %>
+
+      <%= f.submit "Create new list",
+        class: "px-4 py-2 bg-red-600 text-white rounded hover:bg-red-800 cursor-pointer" %>
+    </div>
+
+  <% end %>
+</div>
