@@ -1,4 +1,5 @@
 class LogsController < ApplicationController
+  before_action :authenticate_user!
   def new
     @log = Log.new
     @venues = Venue.all
@@ -44,7 +45,6 @@ class LogsController < ApplicationController
   end
 
   def index
-    @logs = Log.all
     @logs = current_user.logs
     @logs = @logs.joins(:venue).where(venues: { category: params[:category] }) if params[:category].present?
   end
