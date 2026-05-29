@@ -5,4 +5,8 @@ class List < ApplicationRecord
   has_many :venues, through: :list_venues
 
   validates :name, presence: true
+
+  def emoji_default
+    emoji.presence || "📋"
+  end
 end

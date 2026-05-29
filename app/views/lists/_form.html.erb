@@ -7,6 +7,11 @@
         prompt: "Name your list",
         input_html: { class: "w-full border rounded px-3 py-2" } %>
 
+        <%= f.input :emoji,
+        collection: ["📍", "🍔", "🍜", "☕️", "🍷", "🥐", "🪩", "🍕"],
+        label: "List icon",
+        prompt: "Choose an emoji" %>
+
       <%= f.input :comment,
         as: :text,
         input_html: {
