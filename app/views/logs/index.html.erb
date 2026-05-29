@@ -1,25 +1,23 @@
-<div class="container mt-5">
-  <h1 class="mb-4">All Logs</h1>
+<div class="max-w-2xl mt-10 ml-10">
+  <%= image_tag "Logs.svg", class: "w-[400px] -ml-[130px]" %>
   <% @logs.each do |log| %>
-    <div class="card mb-3 p-3">
-      <h3><%= log.venue.name %></h3>
-      <p>
+    <div class="bg-white rounded-lg shadow p-4 mb-4">
+      <h3 class="text-xl font-semibold"><%= log.venue.name %></h3>
+      <p class="mt-2">
         <strong>Rating:</strong>
         <%= log.rating %>/5
       </p>
-      <p>
+      <p class="mt-2">
         <strong>Comment:</strong>
         <%= log.comment %>
       </p>
-      <p class="text-muted">
-        Posted by <%= log.user.user_alias %>
-      </p>
-      <%= link_to "See details",
-        log_path(log),
-        class: "btn btn-primary" %>
+      <div class="flex gap-3 mt-3">
+        <%= link_to "See details", log_path(log), class: "px-4 py-2 bg-black text-white rounded hover:bg-gray-800" %>
+        <%= link_to "Edit", edit_log_path(log), class: "px-4 py-2 bg-gray-900 text-white rounded hover:bg-black" %>
+        <%= link_to "Delete", log_path(log), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700" %>
+      </div>
     </div>
   <% end %>
-  <%= link_to "Create new log",
-    new_log_path,
-    class: "btn btn-primary mb-4" %>
+    <%= link_to "Back", root_path, class: "inline-block mt-4 px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" %>
+    <%= link_to "Create new log", new_log_path, class: "inline-block mt-4 px-4 py-2 bg-black text-white rounded hover:bg-gray-800" %>
 </div>

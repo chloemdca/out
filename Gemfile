@@ -76,3 +76,5 @@ gem "tailwindcss-rails", "~> 4.4"
 gem "devise"
 
 gem "ruby_llm", "~> 1.15"
+
+gem "geocoder", "~> 1.8"
