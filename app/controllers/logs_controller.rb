@@ -45,7 +45,8 @@ class LogsController < ApplicationController
 
   def index
     @logs = Log.all
-    # @logs = current_user.logs
+    @logs = current_user.logs
+    @logs = @logs.joins(:venue).where(venues: { category: params[:category] }) if params[:category].present?
   end
 
   private
