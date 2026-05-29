@@ -12,44 +12,23 @@
       ["Explore new venues", venues_path]
     ].each do |label, path| %>
 
-      <% red_hover = ["Log a venue", "My venues"].include?(label) %>
+      <% red_default = ["Log a venue", "My venues"].include?(label) %>
 
       <div
         class="inline-block"
         style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));"
       >
         <div
-          class="<%= red_hover ? 'bg-[#C12743] p-[4px]' : '' %>"
           style="clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);"
         >
           <div
-            class="bg-white px-5 flex items-center w-[450px] h-[70px]"
-            style="clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);"
+            class="px-5 flex items-center w-[450px] h-[70px]"
+            style="clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%); background-color: <%= red_default ? '#C12743' : 'white' %>;"
           >
             <%= link_to label, path,
-              style: "color: #222222; text-decoration: none; font-size: 1.4rem; font-weight: bold; text-transform: uppercase;",
-              onmouseover: (
-                red_hover ?
-                "
-                  this.style.fontStyle='italic';
-                  this.style.color='white';
-                  this.parentElement.style.backgroundColor='#C12743';
-                " :
-                "
-                  this.style.fontStyle='italic';
-                "
-              ),
-              onmouseout: (
-                red_hover ?
-                "
-                  this.style.fontStyle='normal';
-                  this.style.color='#222222';
-                  this.parentElement.style.backgroundColor='white';
-                " :
-                "
-                  this.style.fontStyle='normal';
-                "
-              )
+              style: "text-decoration: none; font-size: 1.8rem; font-weight: bold; text-transform: uppercase; font-family: 'Londrina Solid', sans-serif; letter-spacing: 0.02em; color: #{red_default ? 'white' : '#222222'};",
+              onmouseover: "this.style.fontStyle='italic';",
+              onmouseout: "this.style.fontStyle='normal';"
             %>
           </div>
         </div>
@@ -57,4 +36,8 @@
 
     <% end %>
   </div>
+</div>
+
+<div class="mt-50 text-3xl tracking-widest text-center">
+  🍾🍾🍾🍾🍾🍾🍾🍾 🍔🍔🍔🍔🍔🍔🍔🍔 🍒🍒🍒🍒🍒🍒🍒🍒
 </div>

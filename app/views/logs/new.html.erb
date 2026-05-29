@@ -1,42 +1,101 @@
-<div class="max-w-lg mx-auto mt-10">
-  <%= image_tag "Create_log.svg", class: "w-[400px] mb-6" %>
+<div class="mt-10 ml-10 flex gap-8">
 
-  <%= simple_form_for [@venue, @log] do |f| %>
+  <%# LEFT SIDE - Form %>
+  <div class="flex-1">
+    <%= image_tag "Create_log.svg", class: "w-[350px] -ml-[40px] h-[65px]" %>
 
-    <div class="mb-4">
-      <%= f.association :venue,
-        collection: Venue.all,
-        label_method: :name,
-        value_method: :id,
-        prompt: "Select a venue",
-        input_html: { class: "w-full border rounded px-3 py-2" } %>
+    <%= simple_form_for [@venue, @log] do |f| %>
 
-      <div class="flex items-center gap-2">
-        <%= f.input :rating,
+      <div class="p-6 rounded-lg mb-6" style="background-color: #FBF0E3; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <div class="mb-4">
+          <%= f.label :venue_id, "VENUE *",
+            style: "font-family: 'Londrina Solid', sans-serif; font-size: 1.4rem; text-transform: uppercase; display: block;" %>
+          <%= f.association :venue,
+            collection: Venue.all,
+            label_method: :name,
+            value_method: :id,
+            prompt: "Select a venue",
+            label: false,
+            input_html: { class: "w-64 border rounded px-3 py-2" } %>
+        </div>
+
+        <%= f.input :date_visited,
+          as: :date,
+          label: "DATE VISITED",
+          label_html: { style: "font-family: 'Londrina Solid', sans-serif; font-size: 1.4rem; text-transform: uppercase;" },
+          input_html: { class: "w-48 border rounded px-3 py-2", type: "date" },
+          html5: true %>
+
+        <div class="flex items-center gap-2 mb-4">
+          <%= f.input :rating,
+            label: "RATING",
+            label_html: { style: "font-family: 'Londrina Solid', sans-serif; font-size: 1.4rem; text-transform: uppercase;" },
+            input_html: {
+              class: "w-full border rounded px-3 py-2",
+              min: 0,
+              max: 5
+            } %>
+          <span class="text-gray-500 whitespace-nowrap">out of 5</span>
+        </div>
+
+        <%= f.input :comment,
+          as: :text,
+          label: "COMMENT",
+          label_html: { style: "font-family: 'Londrina Solid', sans-serif; font-size: 1.4rem; text-transform: uppercase;" },
           input_html: {
-            class: "w-full border rounded px-3 py-2",
-            min: 0,
-            max: 5
+            class: "w-full border rounded px-3 py-2"
           } %>
-
-        <span class="text-gray-500 whitespace-nowrap">
-          out of 5
-        </span>
       </div>
 
-      <%= f.input :comment,
-        as: :text,
-        input_html: {
-          class: "w-full border rounded px-3 py-2"
-        } %>
+      <div class="flex justify-end gap-3">
+        <%= link_to "BACK", root_path,
+          class: "px-6 py-3 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 text-xl",
+          style: "font-family: 'Londrina Solid', sans-serif;"
+        %>
+        <%= f.submit "CREATE LOG",
+          class: "px-6 py-3 text-white rounded cursor-pointer text-xl",
+          style: "font-family: 'Londrina Solid', sans-serif; background-color: #4CAF50;" %>
+      </div>
+
+    <% end %>
+  </div>
+
+  <%# RIGHT SIDE - Map %>
+  <div class="w-[400px] shrink-0">
+    <div class="w-full flex flex-col gap-3">
+      <div class="mb-2 flex items-center justify-between gap-4">
+        <el-dropdown class="relative">
+          <button class="inline-flex items-center gap-x-1.5 rounded-full bg-white px-4 py-2
+                    text-sm font-semibold text-gray-900
+                    shadow-sm ring-1 ring-gray-300
+                    hover:bg-gray-50">
+            Options
+            <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="-mr-1 size-5 text-gray-400">
+              <path d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
+            </svg>
+          </button>
+
+          <el-menu anchor="bottom end" popover class="w-56 origin-top-right rounded-md bg-white shadow-lg outline-1 outline-black/5 transition transition-discrete [--anchor-gap:--spacing(2)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">
+            <div class="py-1">
+              <% if params[:category].present? %>
+                <%= link_to "Clear category", venues_path,
+                class: "block px-4 py-2 text-sm text-rose-700 focus:bg-rose-100 focus:text-rose-900 focus:outline-hidden" %>
+              <% end %>
+
+              <% Venue::CATEGORIES.each do |category| %>
+                <%= link_to category, venues_path(category: category),
+                class: "block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:text-gray-900 focus:outline-hidden" %>
+              <% end %>
+            </div>
+          </el-menu>
+        </el-dropdown>
+      </div>
+
+      <div data-controller="map"
+        data-map-venues-value="<%= @venues.to_json(only: [:id, :lat, :lng, :category, :name]) %>"
+        class="h-[500px] w-full rounded-lg shadow-sm ring-1 ring-gray-200">
+      </div>
     </div>
+  </div>
 
-    <div class="flex justify-end gap-3">
-      <%= link_to "Back", root_path, class: "px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" %>
-
-      <%= f.submit "Create log",
-        class: "px-4 py-2 bg-black text-white rounded hover:bg-gray-800 cursor-pointer" %>
-    </div>
-
-  <% end %>
 </div>

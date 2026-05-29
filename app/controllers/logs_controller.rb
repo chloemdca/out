@@ -1,17 +1,17 @@
 class LogsController < ApplicationController
   def new
     @log = Log.new
+    @venues = Venue.all
   end
 
   def create
-    @venue = Venue.find(params[:venue_id])
     @log = Log.new(log_params)
-    # @log.user = current_user
     @log.user = User.first
-    @log.venue = @venue
     if @log.save
-      redirect_to logs_path(@log)
+      redirect_to logs_path, notice: "Log successfully created"
     else
+      @venue = Venue.find(log_params[:venue_id]) if log_params[:venue_id].present?
+      @venues = Venue.all
       render "logs/new", status: :unprocessable_entity
     end
   end
@@ -51,6 +51,6 @@ class LogsController < ApplicationController
   private
 
   def log_params
-    params.require(:log).permit(:rating, :venue, :comment, :date_visited)
+    params.require(:log).permit(:rating, :venue_id, :comment, :date_visited)
   end
 end
