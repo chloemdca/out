@@ -6,10 +6,35 @@
     <el-dialog-backdrop class="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"></el-dialog-backdrop>
 
     <div tabindex="0" class="flex min-h-full items-end justify-center p-4 text-center focus:outline-none sm:items-center sm:p-0">
-      <el-dialog-panel class="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-sm sm:p-6 data-closed:sm:translate-y-0 data-closed:sm:scale-95">
+      <el-dialog-panel class="relative transform overflow-hidden rounded-lg px-4 pt-5 pb-4 text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-sm sm:p-6 data-closed:sm:translate-y-0 data-closed:sm:scale-95"
+        style="background-color: #FBF0E3; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <h2 class="mb-4 text-center uppercase"
+            style="font-family: 'Londrina Solid', sans-serif; font-size: 1.6rem;">
+          Add a Venue
+        </h2>
         <%= simple_form_for([list, ListVenue.new]) do |f| %>
-          <%= f.association :venue, collection: Venue.all %>
-          <%= f.button :submit, "Add to your list", class: "text-red-800" %>
+          <div class="mb-4">
+            <%= f.label :venue_id, "VENUE *",
+                style: "font-family: 'Londrina Solid', sans-serif; font-size: 1.4rem; text-transform: uppercase; display: block;" %>
+            <%= f.association :venue,
+                collection: Venue.all,
+                label_method: :name,
+                value_method: :id,
+                prompt: "Select a venue",
+                label: false,
+                input_html: { class: "w-full border rounded px-3 py-2" } %>
+          </div>
+          <div class="flex justify-end gap-3 mt-6">
+            <button command="close" commandfor="dialog"
+                    type="button"
+                    class="px-6 py-3 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 text-xl"
+                    style="font-family: 'Londrina Solid', sans-serif;">
+              CANCEL
+            </button>
+            <%= f.submit "ADD TO LIST",
+                class: "px-6 py-3 text-white rounded cursor-pointer text-xl",
+                style: "font-family: 'Londrina Solid', sans-serif; background-color: #4CAF50;" %>
+          </div>
         <% end %>
       </el-dialog-panel>
     </div>

@@ -1,30 +1,41 @@
 <div class="max-w-lg mx-auto mt-10">
-
-  <%= simple_form_for(@list) do |f| %>
-
-    <div class="mb-4">
-      <%= f.input :name,
-        prompt: "Name your list",
-        input_html: { class: "w-full border rounded px-3 py-2" } %>
-
+  <div class="p-6 rounded-lg mb-6" style="background-color: #FBF0E3; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+    <%= simple_form_for(@list) do |f| %>
+      <h2 class="mb-6 text-center uppercase"
+          style="font-family: 'Londrina Solid', sans-serif; font-size: 1.6rem;">
+        Create a New List
+      </h2>
+      <div class="mb-4">
+        <%= f.input :name,
+          label: "NAME *",
+          label_html: { style: "font-family: 'Londrina Solid', sans-serif; font-size: 1.4rem; text-transform: uppercase; display: block;" },
+          placeholder: "Name your list",
+          input_html: { class: "w-full border rounded px-3 py-2" } %>
+      </div>
+      <div class="mb-4">
         <%= f.input :emoji,
-        collection: ["📍", "🍔", "🍜", "☕️", "🍷", "🥐", "🪩", "🍕"],
-        label: "List icon",
-        prompt: "Choose an emoji" %>
+          collection: ["📍", "🍔", "🍜", "☕️", "🍷", "🥐", "🪩", "🍕"],
+          label: "LIST ICON",
+          label_html: { style: "font-family: 'Londrina Solid', sans-serif; font-size: 1.4rem; text-transform: uppercase; display: block;" },
+          prompt: "Choose an emoji",
+          input_html: { class: "w-full border rounded px-3 py-2" } %>
+      </div>
+      <div class="mb-4">
+        <%= f.input :comment,
+          as: :text,
+          label: "COMMENT",
+          label_html: { style: "font-family: 'Londrina Solid', sans-serif; font-size: 1.4rem; text-transform: uppercase; display: block;" },
+          input_html: { class: "w-full border rounded px-3 py-2" } %>
+      </div>
+      <div class="flex justify-end gap-3 mt-6">
+        <%= link_to "BACK", lists_path,
+          class: "px-6 py-3 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 text-xl",
+          style: "font-family: 'Londrina Solid', sans-serif;" %>
 
-      <%= f.input :comment,
-        as: :text,
-        input_html: {
-          class: "w-full border rounded px-3 py-2"
-        } %>
-    </div>
-
-    <div class="flex justify-end gap-3">
-      <%= link_to "Back", lists_path, class: "px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" %>
-
-      <%= f.submit "Create new list",
-        class: "px-4 py-2 bg-red-600 text-white rounded hover:bg-red-800 cursor-pointer" %>
-    </div>
-
-  <% end %>
+        <%= f.submit "CREATE LIST",
+          class: "px-6 py-3 text-white rounded cursor-pointer text-xl",
+          style: "font-family: 'Londrina Solid', sans-serif; background-color: #4CAF50;" %>
+      </div>
+    <% end %>
+  </div>
 </div>
