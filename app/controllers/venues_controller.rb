@@ -1,10 +1,17 @@
 class VenuesController < ApplicationController
   # GET /venues?category=Bar
   def index
-    if params[:category]
+    @venues = Venue.includes(:lists).all
+
+    if params[:category].present?
       @venues = Venue.where(category: params[:category])
-    else
-      @venues = Venue.all
+    end
+
+    case params[:sort]
+    when "az"
+      @venues = @venues.order(:name)
+    when "za"
+      @venues = @venues.order(name: :desc)
     end
   end
 

@@ -73,9 +73,9 @@ export default class extends Controller {
         "circle-color": [
           "match",
           ["get", "category"],
-          "Cafe", "#3fdfff",
-          "Restaurant", "#fe6f2d",
-          "Bar", "#ff54bb",
+          "cafe", "#3fdfff",
+          "restaurant", "#fe6f2d",
+          "bar", "#ff54bb",
           "#999999"
         ],
         "circle-stroke-width": 2,
