@@ -23,7 +23,7 @@
           <% end %>
 
           <% Venue::CATEGORIES.each do |category| %>
-            <%= link_to category, venues_path(params.permit(:sort).merge(category: category)),
+            <%= link_to category.capitalize, venues_path(params.permit(:sort).merge(category: category)),
             class: "block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:text-gray-900 focus:outline-hidden" %>
           <% end %>
         </div>
@@ -72,7 +72,7 @@
           <div class="font-medium text-gray-900">
             <%= link_to venue.name, venue_path(venue) %>
             <div class="text-sm text-gray-600">
-              <%= venue.category %>
+              <%= venue.category.capitalize %>
             </div>
             <div class="flex gap-2 justify-end">
               <%= link_to "Add log", new_venue_log_path(venue),
