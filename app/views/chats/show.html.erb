@@ -1,21 +1,14 @@
-<div class="container mt-5">
-  <h1>Chat</h1>
+<div class="max-w-2xl mx-auto mt-10 px-4">
+  <h1 class="text-2xl font-bold mb-6">Chat</h1>
 
-  <div class="chat-messages space-y-4">
+  <div class="space-y-8 mb-6">
     <% @chat.messages.each do |message| %>
-      <div class="message-row flex <%= message.role == "user" ? "justify-end" : "justify-start" %>">
+      <div class="flex <%= message.role == 'user' ? 'justify-end' : 'justify-start' %>">
         <div class="max-w-xl">
-          <div class="
-            rounded-2xl
-            px-4
-            py-3
-            shadow-sm
-            <%= message.role == "user" ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-900" %>
-          ">
-            <p>
-              <%= message.content %>
-            </p>
+          <div class="rounded-2xl px-4 py-3 <%= message.role == 'user' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-900' %>">
+            <p><%= message.content %></p>
           </div>
+
           <% if message.role == "assistant" %>
             <% suggestions = message.metadata&.dig("suggestions") || [] %>
             <% if suggestions.any? %>
@@ -32,10 +25,10 @@
   </div>
 
   <%= form_with model: [@chat, @message] do |f| %>
-    <p><%= @message.errors.full_messages.join(" | ") %></p>
-    <div class="mb-6">
-      <%= f.text_area :content, class: "form-control" %>
+    <p class="text-red-500"><%= @message.errors.full_messages.join(" | ") %></p>
+    <div class="mb-4">
+      <%= f.text_area :content, class: "w-full bg-white border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" %>
     </div>
-    <%= f.submit "Send", class: "btn btn-primary" %>
+    <%= f.submit "Send", class: "bg-black text-white px-6 py-2 rounded-xl hover:bg-gray-800 transition cursor-pointer" %>
   <% end %>
 </div>
