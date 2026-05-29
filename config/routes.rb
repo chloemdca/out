@@ -36,4 +36,6 @@ Rails.application.routes.draw do
   resources :lists do
     resources :list_venues, only: [ :create ]
   end
+
+  resources :users, only: [:show]
 end

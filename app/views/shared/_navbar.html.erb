@@ -6,11 +6,9 @@
       <%= link_to "Home", root_path, class: "font-medium hover:text-gray-600" %>
       <%= link_to "Chat", chats_path, class: "font-medium hover:text-gray-600" %>
       <%= button_to "Sign out", destroy_user_session_path, method: :delete, data: { turbo: false }, class: "signout-btn" %>
-      <div class="relative">
-        <a href="#" id="navbarDropdown">
-          <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "h-10 w-10 rounded-full", alt: "dropdown menu" %>
-        </a>
-      </div>
+      <%= link_to user_path(current_user) do %>
+        <%= image_tag "user_image.svg", class: "h-10 w-10 rounded-full", alt: "profile" %>
+      <% end %>
     <% else %>
       <%= link_to "Login", new_user_session_path, class: "font-medium hover:text-gray-600" %>
     <% end %>
