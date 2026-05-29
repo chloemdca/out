@@ -12,6 +12,7 @@ puts "Cleaning database.."
 Venue.destroy_all
 User.destroy_all
 List.destroy_all
+Log.destroy_all
 
 venues = Venue.create!([
   {
@@ -121,3 +122,28 @@ venues.sample(2).each do |venue|
 end
 
 puts "Lists created!"
+
+Log.create!(
+  user: user,
+  venue: venues[2],
+  rating: 3,
+  comment: "Decent but nothing special.",
+  date_visited: Date.new(2026, 4, 20)
+)
+
+Log.create!(
+  user: user,
+  venue: venues[3],
+  rating: 2,
+  comment: "Service was slow, food was okay.",
+  date_visited: Date.new(2026, 5, 1)
+)
+
+Log.create!(
+  user: user,
+  venue: venues[4],
+  rating: 5,
+  comment: "Absolutely stunning place, will be back!",
+  date_visited: Date.new(2026, 5, 10)
+)
+puts "Logs created!"

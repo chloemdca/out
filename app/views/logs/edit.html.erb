@@ -1,7 +1,7 @@
 <div class="max-w-2xl mx-auto mt-10 px-4">
-  <h1 class="text-3xl font-bold mb-2">Edit log</h1>
-  <p class="text-lg text-gray-700 mb-6">
-    <span class="font-semibold">
+  <h1 class="text-3xl font-bold mb-2" style="font-family: 'Londrina Solid', sans-serif; text-transform: uppercase;">Edit log</h1>
+  <p class="text-lg mb-6">
+    <span class="font-semibold" style="font-size: 1.6rem; font-family: 'Londrina Solid', sans-serif; text-transform: uppercase; color: #C12743;">
       <%= @log.venue.name %>
     </span>
   </p>
@@ -29,12 +29,14 @@
     </div>
 
     <div class="flex justify-end gap-3">
-      <%= link_to "Back",
+      <%= link_to "BACK",
         logs_path(@logs),
-        class: "px-6 py-3 bg-gray-200 text-gray-800 font-bold rounded-lg hover:bg-gray-300 transition duration-200" %>
+        class: "px-6 py-3 bg-gray-200 text-gray-800 font-bold rounded-lg hover:bg-gray-300 transition duration-200",
+        style: "font-family: 'Londrina Solid', sans-serif;" %>
 
-      <%= f.button :submit, "Update log",
-        class: "px-6 py-3 bg-gray-900 text-white font-bold rounded-lg hover:bg-black transition duration-200" %>
+      <%= f.button :submit, "UPDATE LOG",
+        class: "px-6 py-3 bg-gray-900 text-white font-bold rounded-lg hover:bg-black transition duration-200",
+        style: "font-family: 'Londrina Solid', sans-serif;" %>
     </div>
 
   <% end %>
