@@ -11,6 +11,19 @@ class ListVenuesController < ApplicationController
     end
   end
 
+  # POST /lists/:id/toggle_venue?venue_id=4
+  def toggle_venue
+    @list = List.find(params[:id])
+    @venue = Venue.find(params[:venue_id])
+    @venue_list = ListVenue.find_by(list: @list, venue: @venue)
+    if @venue_list.present?
+      @venue_list.destroy
+    else
+      ListVenue.create(list: @list, venue: @venue)
+    end
+    redirect_back fallback_location: chats_path
+  end
+
   private
 
   def list_venue_params
