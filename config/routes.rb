@@ -34,6 +34,9 @@ Rails.application.routes.draw do
 
   resources :logs
   resources :lists do
+    member do
+      post :toggle_venue, to: "list_venues#toggle_venue"
+    end
     resources :list_venues, only: [ :create ]
   end
 
