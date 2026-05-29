@@ -1,7 +1,7 @@
 class VenuesController < ApplicationController
   # GET /venues?category=Bar
   def index
-    @venues = Venue.all
+    @venues = Venue.includes(:lists).all
 
     if params[:category].present?
       @venues = Venue.where(category: params[:category])
